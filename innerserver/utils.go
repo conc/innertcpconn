@@ -1,10 +1,11 @@
 package innerserver
 
 import (
-	"bytes"
-	"encoding/binary"
 	"errors"
+	"unsafe"
 )
+
+var sizeUint64 = int(unsafe.Sizeof(uint64(0)))
 
 type connStu struct {
 	RequestId   uint64
@@ -39,15 +40,24 @@ func bytesToConnStu(data []byte) (*connStu, error) {
 	return &result, nil
 }
 
-func uint64ToBytes(data uint64) []byte {
-	b_buf := bytes.NewBuffer([]byte{})
-	binary.Write(b_buf, binary.BigEndian, data)
-	return b_buf.Bytes()
+// encodes a little-endian uint64 into a byte slice.
+func uint64ToBytes(n uint64) []byte {
+	buf := make([]byte, 8)
+	for i := uint(0); i < uint(sizeUint64); i++ {
+		buf[i] = byte(n >> (i * 8))
+	}
+	return buf
 }
 
-func bytesToUint64(data []byte) uint64 {
-	var result uint64
-	b_buf := bytes.NewBuffer(data)
-	binary.Read(b_buf, binary.BigEndian, &result)
-	return result
+// decodes a little-endian uint64 from a byte slice.
+func bytesToUint64(buf []byte) (n uint64) {
+	n |= uint64(buf[0])
+	n |= uint64(buf[1]) << 8
+	n |= uint64(buf[2]) << 16
+	n |= uint64(buf[3]) << 24
+	n |= uint64(buf[4]) << 32
+	n |= uint64(buf[5]) << 40
+	n |= uint64(buf[6]) << 48
+	n |= uint64(buf[7]) << 56
+	return
 }
