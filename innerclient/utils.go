@@ -41,6 +41,7 @@ func bytesToConnStu(data []byte) (*connStu, error) {
 }
 
 // encodes a little-endian uint64 into a byte slice.
+// copy it from google's code
 func uint64ToBytes(n uint64) []byte {
 	buf := make([]byte, 8)
 	for i := uint(0); i < uint(sizeUint64); i++ {
@@ -50,6 +51,7 @@ func uint64ToBytes(n uint64) []byte {
 }
 
 // decodes a little-endian uint64 from a byte slice.
+// copy it from google's code
 func bytesToUint64(buf []byte) (n uint64) {
 	n |= uint64(buf[0])
 	n |= uint64(buf[1]) << 8
