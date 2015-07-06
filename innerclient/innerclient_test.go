@@ -23,7 +23,6 @@ import (
         case 1:
         case 2:
         case 99:
-            log.Println(string(reqData))
             return []byte("--..--..")
         default:
     }
