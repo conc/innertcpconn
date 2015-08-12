@@ -1,9 +1,9 @@
-# innerconn
+# innertcpconn
 
 #How to use:
 
-go get github.com/conc/innerconn/innerserver   
-go get github.com/conc/innerconn/innerclient   
+go get github.com/conc/innertcpconn/innerserver   
+go get github.com/conc/innertcpconn/innerclient   
 
 
 #Examples:
@@ -13,7 +13,7 @@ client.go:
 package main
 
 import (
-	"github.com/conc/innerconn/innerclient"
+	"github.com/conc/innertcpconn/innerclient"
 	"log"
 )
 
@@ -40,7 +40,7 @@ server.go:
 package main
 
 import (
-	"github.com/conc/innerconn/innerserver"
+	"github.com/conc/innertcpconn/innerserver"
 	"log"
 )
 
